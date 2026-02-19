@@ -1,260 +1,810 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
-  <meta charset="UTF-8">
-  <title>Recovero | 24/7 Recovery Dispatch in Portsmouth</title>
-  <meta name="description" content="Recovero connects you with local independent operators for fast, 24/7 breakdown, accident recovery and transport in Portsmouth and surrounding areas. Call now for dispatch.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="images/recovero-logo.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Garden Clearance in Portsmouth | Same-day Available</title>
+  <meta name="description" content="Fast, licensed garden clearance in Portsmouth. Green waste, rubbish, sheds, soil and rubble removed with transparent pricing and same-day availability." />
+  <style>
+    :root {
+      --bg: #f5f8f7;
+      --surface: #ffffff;
+      --surface-2: #eef4f2;
+      --text: #10241e;
+      --muted: #4b625a;
+      --primary: #0f7a4b;
+      --primary-dark: #0b5a37;
+      --accent: #1f9d7a;
+      --whatsapp: #25d366;
+      --danger: #c0392b;
+      --ring: rgba(15, 122, 75, 0.28);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --shadow: 0 16px 36px rgba(16, 36, 30, 0.12);
+      --container: min(1120px, calc(100% - 2rem));
+      --space-1: .5rem;
+      --space-2: .75rem;
+      --space-3: 1rem;
+      --space-4: 1.25rem;
+      --space-5: 1.75rem;
+      --space-6: 2.5rem;
+      --space-7: 3.5rem;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    .container { width: var(--container); margin-inline: auto; }
+    .section { padding: var(--space-7) 0; }
+    .section h2 {
+      margin: 0 0 var(--space-3);
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      line-height: 1.2;
+    }
+    .section p.lead { margin: 0 0 var(--space-5); color: var(--muted); max-width: 68ch; }
+
+    .sticky-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 99;
+      opacity: 0;
+      transform: translateY(-100%);
+      pointer-events: none;
+      transition: transform .25s ease, opacity .25s ease;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #dce7e2;
+    }
+    .sticky-bar.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .sticky-inner {
+      width: var(--container);
+      margin-inline: auto;
+      padding: .65rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+    }
+    .logo { font-weight: 800; letter-spacing: -.02em; }
+    .logo span { color: var(--primary); }
+
+    .btn-row { display: flex; gap: .55rem; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .4rem;
+      border: 0;
+      border-radius: 999px;
+      padding: .72rem 1rem;
+      font-weight: 700;
+      font-size: .95rem;
+      cursor: pointer;
+      transition: transform .15s ease, background .2s ease, box-shadow .2s ease;
+      box-shadow: 0 4px 16px rgba(16, 36, 30, .15);
+    }
+    .btn:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+      outline: 3px solid var(--ring);
+      outline-offset: 2px;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-secondary { background: #fff; color: var(--text); border: 1px solid #cfddd7; }
+    .btn-call { background: var(--primary); color: #fff; }
+    .btn-wa { background: var(--whatsapp); color: #0d2918; }
+
+    .hero { padding: 6.5rem 0 var(--space-7); }
+    .hero-grid {
+      display: grid;
+      gap: var(--space-6);
+      align-items: center;
+    }
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2rem, 6vw, 3.4rem);
+      line-height: 1.06;
+      letter-spacing: -.02em;
+    }
+    .hero p { color: var(--muted); margin: var(--space-3) 0 var(--space-4); }
+    .trust-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 var(--space-5);
+      display: grid;
+      gap: .55rem;
+    }
+    .trust-bullets li { display: flex; align-items: center; gap: .6rem; font-weight: 600; }
+    .dot-icon {
+      width: 1.6rem;
+      height: 1.6rem;
+      border-radius: 50%;
+      background: #d9f3e7;
+      color: var(--primary-dark);
+      display: grid;
+      place-items: center;
+      font-size: .82rem;
+      flex-shrink: 0;
+    }
+
+    .hero-image {
+      position: relative;
+      min-height: 320px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: linear-gradient(135deg, #b3d1c5, #eaf4f0);
+      isolation: isolate;
+    }
+    .hero-image::before {
+      content: "";
+      position: absolute;
+      inset: 0 45% 0 0;
+      background: linear-gradient(120deg, #95b1a7, #dce8e2);
+      z-index: -1;
+    }
+    .hero-image::after {
+      content: "";
+      position: absolute;
+      inset: 0 0 0 55%;
+      background: linear-gradient(120deg, #81bf93, #d8f0df);
+      z-index: -1;
+    }
+    .before, .after {
+      position: absolute;
+      top: 0;
+      width: 55%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .before { left: 0; clip-path: inset(0 15% 0 0); }
+    .after { right: 0; clip-path: inset(0 0 0 15%); }
+    .split-line {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 2px;
+      height: 100%;
+      background: rgba(255,255,255,.95);
+      box-shadow: 0 0 0 6px rgba(255,255,255,.22);
+    }
+    .label {
+      position: absolute;
+      top: .9rem;
+      padding: .35rem .65rem;
+      border-radius: 999px;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .02em;
+      background: rgba(16,36,30,.75);
+      color: #fff;
+    }
+    .label.before-l { left: .75rem; }
+    .label.after-l { right: .75rem; }
+
+    .form-wrap {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: var(--space-5);
+      box-shadow: var(--shadow);
+    }
+    form {
+      display: grid;
+      gap: var(--space-3);
+    }
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+    }
+    label { font-weight: 600; font-size: .95rem; }
+    input, select, textarea {
+      width: 100%;
+      margin-top: .35rem;
+      border: 1px solid #c8d8d0;
+      border-radius: var(--radius-sm);
+      padding: .78rem .85rem;
+      font: inherit;
+      color: var(--text);
+      background: #fff;
+    }
+    textarea { min-height: 100px; resize: vertical; }
+    .check {
+      display: flex;
+      align-items: flex-start;
+      gap: .5rem;
+      font-size: .9rem;
+      color: var(--muted);
+    }
+    .check input { width: auto; margin-top: .18rem; }
+    .success {
+      margin-top: .85rem;
+      background: #d9f3e7;
+      border: 1px solid #91d3b2;
+      color: #0d442b;
+      padding: .8rem 1rem;
+      border-radius: var(--radius-sm);
+      display: none;
+      font-weight: 600;
+    }
+
+    .social-strip {
+      background: #103e2d;
+      color: #f3fcf8;
+      padding: var(--space-5) 0;
+    }
+    .rating { display: flex; align-items: center; gap: .6rem; margin-bottom: var(--space-3); font-weight: 700; }
+    .stars { color: #ffd166; letter-spacing: .08rem; }
+    .testimonials { display: grid; gap: var(--space-3); }
+    .card {
+      background: rgba(255,255,255,.11);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: var(--radius-sm);
+      padding: var(--space-3);
+    }
+    .card small { color: #b8d7c8; }
+
+    .services-grid, .trust-icons, .chips, .faq-list, .gallery-grid {
+      display: grid;
+      gap: var(--space-3);
+    }
+    .service-card {
+      background: var(--surface);
+      border: 1px solid #dbe8e3;
+      border-radius: var(--radius-sm);
+      padding: var(--space-4);
+    }
+    .service-icon { font-size: 1.3rem; margin-bottom: .35rem; }
+
+    .diagram {
+      background: linear-gradient(170deg, #ecf7f2, #dff1ea);
+      border-radius: var(--radius);
+      padding: var(--space-3);
+      overflow-x: auto;
+    }
+    .diagram svg { min-width: 780px; width: 100%; height: auto; }
+
+    .estimator {
+      display: grid;
+      gap: var(--space-3);
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1px solid #dce8e3;
+      padding: var(--space-4);
+      box-shadow: var(--shadow);
+    }
+    .estimate-value {
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      font-weight: 800;
+      color: var(--primary-dark);
+    }
+
+    .gallery-item {
+      position: relative;
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid #dbe8e2;
+      cursor: zoom-in;
+    }
+    .gallery-item img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      background: linear-gradient(135deg, #d9e8e1, #eaf3ee);
+    }
+    .gallery-item figcaption { padding: .65rem .75rem; font-size: .9rem; color: var(--muted); }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.78);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      z-index: 120;
+    }
+    .modal.open { display: flex; }
+    .modal-box { max-width: 920px; width: 100%; position: relative; }
+    .modal-box img { width: 100%; max-height: 82vh; object-fit: contain; border-radius: 12px; }
+    .close-modal {
+      position: absolute;
+      top: .65rem;
+      right: .65rem;
+      border: 0;
+      border-radius: 999px;
+      width: 2.1rem;
+      height: 2.1rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      background: rgba(255,255,255,.9);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      border-radius: 999px;
+      border: 1px solid #b9d8ca;
+      padding: .45rem .8rem;
+      font-weight: 700;
+      background: #eef8f3;
+      margin-bottom: var(--space-3);
+    }
+
+    .map-wrap {
+      background: var(--surface);
+      border: 1px solid #dce8e3;
+      border-radius: var(--radius);
+      padding: var(--space-4);
+    }
+    .chips { grid-template-columns: repeat(auto-fit,minmax(120px,1fr)); }
+    .chip {
+      background: var(--surface-2);
+      border: 1px solid #cfe0d8;
+      border-radius: 999px;
+      text-align: center;
+      padding: .45rem .7rem;
+      font-size: .9rem;
+      font-weight: 600;
+    }
+
+    details {
+      background: var(--surface);
+      border: 1px solid #dbe7e2;
+      border-radius: var(--radius-sm);
+      padding: .85rem 1rem;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      list-style: none;
+      position: relative;
+      padding-right: 1.4rem;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: "+";
+      position: absolute;
+      right: 0;
+      top: 0;
+      color: var(--primary);
+    }
+    details[open] summary::after { content: "−"; }
+    details p { margin: .6rem 0 0; color: var(--muted); }
+
+    .final-cta {
+      background: linear-gradient(145deg, #103e2d, #0b2f23);
+      color: #f1fcf6;
+      text-align: center;
+      border-radius: var(--radius);
+      padding: var(--space-6) var(--space-4);
+    }
+
+    footer {
+      background: #0f201a;
+      color: #b8cec3;
+      padding: var(--space-5) 0;
+      font-size: .92rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .reveal.show { opacity: 1; transform: translateY(0); }
+
+    @media (min-width: 740px) {
+      .hero-grid { grid-template-columns: 1.02fr .98fr; }
+      .field-grid { grid-template-columns: 1fr 1fr; }
+      .services-grid { grid-template-columns: repeat(3,1fr); }
+      .testimonials { grid-template-columns: repeat(3,1fr); }
+      .gallery-grid { grid-template-columns: repeat(3,1fr); }
+      .trust-icons { grid-template-columns: repeat(3,1fr); }
+    }
+  </style>
 </head>
 <body>
-
-  <!-- Top alert bar -->
-  <div class="top-bar">
-    <span class="emoji">🚨</span>
-    <span>Stuck right now? 24/7 recovery dispatch in Portsmouth &amp; nearby.</span>
-    <a href="tel:07366302341" class="top-bar-call">Call: 07366 302341</a>
-  </div>
-
-  <!-- Header / navigation -->
-  <header class="site-header">
-    <div class="logo-wrap">
-      <img src="images/recovero-logo.png" alt="Recovero logo" class="logo-img">
-      <div class="logo-text">
-        <span class="brand-name">Recovero</span>
-        <span class="brand-tagline">The Vehicle Recovery Network</span>
+  <div class="sticky-bar" id="stickyBar">
+    <div class="sticky-inner">
+      <div class="logo"><span id="brandText">ClearPath</span> Garden Clearance</div>
+      <div class="btn-row">
+        <a class="btn btn-call" id="callBtnTop" href="tel:+447700900123">Call</a>
+        <a class="btn btn-wa" id="waBtnTop" href="https://wa.me/447700900123" target="_blank" rel="noopener">WhatsApp</a>
       </div>
     </div>
+  </div>
 
-    <nav id="mobileNav" class="nav-links">
-      <a href="index.html" class="nav-link active">Home</a>
-      <a href="breakdown-recovery.html" class="nav-link">Breakdown Recovery</a>
-      <a href="accident-recovery.html" class="nav-link">Accident Recovery</a>
-      <a href="vehicle-transport.html" class="nav-link">Vehicle Transport</a>
-      <a href="areas-we-cover.html" class="nav-link">Areas We Cover</a>
-      <details class="nav-details">
-        <summary class="nav-link">Locations</summary>
-        <div class="nav-submenu">
-          <a href="locations/portsmouth-vehicle-recovery.html" class="nav-sublink">Portsmouth</a>
-          <a href="locations/havant-vehicle-recovery.html" class="nav-sublink">Havant</a>
-          <a href="locations/fareham-vehicle-recovery.html" class="nav-sublink">Fareham</a>
-          <a href="locations/gosport-vehicle-recovery.html" class="nav-sublink">Gosport</a>
-          <a href="locations/waterlooville-vehicle-recovery.html" class="nav-sublink">Waterlooville</a>
+  <header class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p style="font-weight:700;color:var(--primary);margin:0 0 .6rem;">Same-day available • Local team • Fast response</p>
+        <h1>Garden Clearance in <span id="serviceAreaHeading">Portsmouth</span></h1>
+        <p>Green waste, rubbish, furniture, sheds, soil &amp; rubble — cleared fast.</p>
+        <ul class="trust-bullets">
+          <li><span class="dot-icon">✓</span> Licensed waste carrier</li>
+          <li><span class="dot-icon">⚡</span> Same-day and next-day slots</li>
+          <li><span class="dot-icon">🛡</span> Fully insured local team</li>
+        </ul>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="#quote-form">Get a Fast Quote</a>
+          <a class="btn btn-secondary" id="callBtnHero" href="tel:+447700900123">Call Now</a>
         </div>
-      </details>
-      <a href="terms.html" class="nav-link">Terms &amp; Conditions</a>
-    </nav>
-    <div class="header-actions">
-      <a href="tel:07366302341" class="btn btn-primary header-call-btn">Call 07366 302341</a>
-      <button class="hamburger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">☰</button>
+      </div>
+      <div class="hero-image reveal" aria-label="Before and after garden clearance">
+        <img class="before" src="images/garden-before.jpg" alt="Garden before clearance" onerror="this.style.display='none'" />
+        <img class="after" src="images/garden-after.jpg" alt="Garden after clearance" onerror="this.style.display='none'" />
+        <div class="split-line" aria-hidden="true"></div>
+        <span class="label before-l">BEFORE</span>
+        <span class="label after-l">AFTER</span>
+      </div>
     </div>
   </header>
 
-  <main>
+  <section class="section" id="quote-form">
+    <div class="container reveal">
+      <h2>Quick Quote in Under 30 Seconds</h2>
+      <p class="lead">Send details now. Or share photos on WhatsApp for a faster fixed quote.</p>
+      <div class="form-wrap">
+        <form id="quoteForm">
+          <div class="field-grid">
+            <label>Name<input required name="name" autocomplete="name" /></label>
+            <label>Phone<input required name="phone" type="tel" autocomplete="tel" /></label>
+            <label>Postcode<input required name="postcode" /></label>
+            <label>What needs clearing?
+              <select required name="wasteType">
+                <option value="">Choose…</option>
+                <option>Green waste</option>
+                <option>General rubbish</option>
+                <option>Shed removal</option>
+                <option>Soil & rubble</option>
+                <option>Furniture & bulky items</option>
+                <option>Mixed load</option>
+              </select>
+            </label>
+            <label>Approx size
+              <select required name="size">
+                <option value="">Choose…</option>
+                <option>5–10 bags</option>
+                <option>1/4 van load</option>
+                <option>1/2 van load</option>
+                <option>3/4 van load</option>
+                <option>Full van load</option>
+              </select>
+            </label>
+            <label>Preferred date<input name="date" type="date" /></label>
+          </div>
+          <label>Access notes<textarea name="notes" placeholder="e.g. side gate access, stairs, parking details"></textarea></label>
+          <label>Upload photos (optional)<input name="photo" type="file" accept="image/*" multiple /></label>
+          <label class="check"><input required type="checkbox" name="consent" /> I agree to be contacted about my quote.</label>
+          <button class="btn btn-primary" type="submit">Get My Quote</button>
+          <div class="success" id="successMsg" role="status" aria-live="polite">Thanks — quote request sent. We’ll call within 10 minutes.</div>
+        </form>
+        <p style="margin:1rem 0 0;color:var(--muted)"><strong>Prefer WhatsApp?</strong> Take 2–3 photos, include your postcode and send to <a id="waTextLink" href="https://wa.me/447700900123" style="color:var(--primary);font-weight:700">our WhatsApp quote line</a>.</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- Hero section -->
-    <section class="hero">
-      <div class="hero-text">
-        <h1>24/7 Vehicle Recovery Dispatch – Portsmouth</h1>
-        <p class="hero-sub">
-          Call now for ETA + price.
-        </p>
-        <p class="hero-emphasis">We arrange recovery using vetted local operators for fast dispatch across Portsmouth, Havant, Fareham, Gosport and surrounding areas.</p>
-        <p class="hero-emphasis">Customers pay the attending operator directly on completion.</p>
-        <ul class="hero-list">
-          <li>Typical arrival times vary (traffic and operator availability dependent).</li>
-          <li>Breakdowns, accidents &amp; vehicle transport</li>
-          <li>Operator confirms the final price before dispatch where possible – no membership</li>
-        </ul>
-        <div class="hero-actions">
-          <a href="tel:07366302341" class="btn btn-primary hero-call-btn">
-            📞 Call Now – ETA &amp; Price
-          </a>
+  <section class="social-strip">
+    <div class="container reveal">
+      <div class="rating"><span class="stars" aria-hidden="true">★★★★★</span> 4.9/5 from local customers</div>
+      <div class="testimonials">
+        <article class="card"><p>“Messy back garden cleared same day. Fair price and no hassle.”</p><small>— Sarah, Southsea</small></article>
+        <article class="card"><p>“Shared photos on WhatsApp, got a fixed quote in minutes.”</p><small>— Daniel, Cosham</small></article>
+        <article class="card"><p>“Team arrived on time, loaded everything and swept up after.”</p><small>— Priya, Havant</small></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container reveal">
+      <h2>Garden Clearance Services</h2>
+      <div class="services-grid">
+        <article class="service-card"><div class="service-icon">🌿</div><h3>Green waste</h3><p>Branches, hedge cuttings, leaves and garden debris removed quickly.</p></article>
+        <article class="service-card"><div class="service-icon">🧹</div><h3>General rubbish</h3><p>Black bags, mixed junk and old outdoor clutter responsibly cleared.</p></article>
+        <article class="service-card"><div class="service-icon">🪚</div><h3>Shed removal</h3><p>Dismantle and remove timber/metal sheds with safe loading.</p></article>
+        <article class="service-card"><div class="service-icon">🧱</div><h3>Soil &amp; rubble</h3><p>Heavy loads collected with proper disposal routes and paperwork.</p></article>
+        <article class="service-card"><div class="service-icon">🛋</div><h3>Furniture &amp; bulky items</h3><p>Old patio sets, broken furniture and bulky waste collected.</p></article>
+        <article class="service-card"><div class="service-icon">🏡</div><h3>End-of-tenancy clear</h3><p>Fast clearances to get gardens ready for check-out or sale.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="howItWorksTitle">
+    <div class="container reveal">
+      <h2 id="howItWorksTitle">How It Works</h2>
+      <div class="diagram" role="img" aria-label="4-step garden clearance process diagram">
+        <svg viewBox="0 0 980 280" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#0f7a4b"/></marker>
+          </defs>
+          <rect x="25" y="55" width="210" height="160" rx="16" fill="#fff" stroke="#c3ddd2"/>
+          <rect x="265" y="55" width="210" height="160" rx="16" fill="#fff" stroke="#c3ddd2"/>
+          <rect x="505" y="55" width="210" height="160" rx="16" fill="#fff" stroke="#c3ddd2"/>
+          <rect x="745" y="55" width="210" height="160" rx="16" fill="#fff" stroke="#c3ddd2"/>
+          <line x1="235" y1="135" x2="255" y2="135" stroke="#0f7a4b" stroke-width="4" marker-end="url(#arr)"/>
+          <line x1="475" y1="135" x2="495" y2="135" stroke="#0f7a4b" stroke-width="4" marker-end="url(#arr)"/>
+          <line x1="715" y1="135" x2="735" y2="135" stroke="#0f7a4b" stroke-width="4" marker-end="url(#arr)"/>
+          <text x="48" y="90" font-size="20" font-weight="700" fill="#0d2f23">1. Send photos / describe</text>
+          <text x="48" y="124" font-size="15" fill="#486258">WhatsApp or form details</text>
+          <text x="290" y="90" font-size="20" font-weight="700" fill="#0d2f23">2. Fixed quote confirmed</text>
+          <text x="290" y="124" font-size="15" fill="#486258">Clear price before we start</text>
+          <text x="530" y="90" font-size="20" font-weight="700" fill="#0d2f23">3. We clear &amp; load</text>
+          <text x="530" y="124" font-size="15" fill="#486258">Fast, tidy, professional team</text>
+          <text x="768" y="90" font-size="20" font-weight="700" fill="#0d2f23">4. Legal disposal</text>
+          <text x="768" y="124" font-size="15" fill="#486258">Duty of care documentation</text>
+          <circle cx="73" cy="170" r="20" fill="#d8f3e5"/><text x="65" y="176" font-size="16">📷</text>
+          <circle cx="313" cy="170" r="20" fill="#d8f3e5"/><text x="307" y="176" font-size="16">£</text>
+          <circle cx="553" cy="170" r="20" fill="#d8f3e5"/><text x="546" y="176" font-size="16">🚚</text>
+          <circle cx="793" cy="170" r="20" fill="#d8f3e5"/><text x="786" y="176" font-size="16">♻</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container reveal">
+      <h2>Instant Price Estimator</h2>
+      <p class="lead">Get a ballpark range in seconds. Final quote confirmed after photos and access checks.</p>
+      <div class="estimator">
+        <div class="field-grid">
+          <label>Waste type
+            <select id="estimateType">
+              <option value="green">Green waste</option>
+              <option value="mixed">Mixed load</option>
+              <option value="rubble">Soil & rubble</option>
+              <option value="shed">Shed removal</option>
+            </select>
+          </label>
+          <label>Load size
+            <select id="estimateSize">
+              <option value="bags">5–10 bags</option>
+              <option value="quarter">1/4 van</option>
+              <option value="half">1/2 van</option>
+              <option value="full">Full van</option>
+            </select>
+          </label>
         </div>
-        <div class="whatsapp-fallback" id="whatsappFallback">
-          <h2>Can’t call?</h2>
-          <p>Send your location and what’s happened on WhatsApp.</p>
-          <a href="https://wa.me/447366302341?text=Hi%20Recovero%2C%20I%20need%20recovery.%20Location%2Fpostcode%3A%20____%20.%20Vehicle%3A%20____%20.%20Issue%3A%20____%20." class="btn btn-outline">
-            WhatsApp – Send Details
-          </a>
-          <p class="whatsapp-note">Best for noisy locations / if you can’t talk.</p>
-        </div>
-        <p class="hero-note">
-          Recovero is an introducer/dispatch service. A local independent recovery operator attends and takes payment — <a href="terms.html">learn more</a>.
-        </p>
-      </div>
-
-      <div class="hero-image-card">
-        <img src="images/recovery-truck.jpg" alt="Recovery truck loading a car in Portsmouth">
-      </div>
-    </section>
-
-    <section class="content-card">
-      <h2>Why Drivers Use Recovero</h2>
-      <ul class="icon-list">
-        <li><strong>Introducer service</strong> – we match you with a local operator; they provide the service and take payment.</li>
-        <li><strong>Fast local response</strong> – focused on Portsmouth and surrounding areas for quicker operator ETAs.</li>
-        <li><strong>No membership required</strong> – pay the operator only when you actually need recovery or transport.</li>
-        <li><strong>Clear, upfront pricing</strong> – guide prices before dispatch where possible.</li>
-        <li><strong>Cars &amp; vans</strong> – running or non-running, roadside or home start handled by local operators.</li>
-      </ul>
-    </section>
-
-    <!-- How it works strip -->
-    <section class="how-it-works">
-      <h2>How It Works</h2>
-      <div class="how-grid">
-        <div class="how-step">
-          <div class="how-icon" aria-hidden="true">📞</div>
-          <h3>Contact Recovero</h3>
-          <p>Call or send your details so we can start dispatch.</p>
-        </div>
-        <div class="how-step">
-          <div class="how-icon" aria-hidden="true">📍</div>
-          <h3>We match you with a nearby independent operator</h3>
-          <p>We connect you with an available operator close to your location.</p>
-        </div>
-        <div class="how-step">
-          <div class="how-icon" aria-hidden="true">🚚</div>
-          <h3>Operator confirms price &amp; attends</h3>
-          <p>The attending operator confirms pricing and takes payment.</p>
+        <div>
+          <p style="margin:0;color:var(--muted)">Estimated range:</p>
+          <div class="estimate-value" id="estimateValue">£60–£95</div>
+          <small style="color:var(--muted)">Final quote after photos / access.</small>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Services summary cards -->
-    <section class="services">
-      <h2>What We Can Help With</h2>
-      <div class="service-grid">
-        <article class="service-card">
-          <h3>Breakdown Recovery</h3>
-          <p>Car won’t start? Broken down at the roadside or at home? We arrange dispatch with a local independent operator to recover you and your vehicle.</p>
-          <a href="breakdown-recovery.html" class="text-link">More about breakdown recovery →</a>
-        </article>
+  <section class="section">
+    <div class="container reveal">
+      <h2>Before &amp; After Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item" tabindex="0"><img src="images/gallery-1.jpg" alt="Green waste and rubbish before clearance" onerror="this.style.opacity='.25'" /><figcaption>Green waste + rubbish removal</figcaption></figure>
+        <figure class="gallery-item" tabindex="0"><img src="images/gallery-2.jpg" alt="Shed dismantling and tidy finish" onerror="this.style.opacity='.25'" /><figcaption>Shed dismantle &amp; remove</figcaption></figure>
+        <figure class="gallery-item" tabindex="0"><img src="images/gallery-3.jpg" alt="Soil and rubble collection" onerror="this.style.opacity='.25'" /><figcaption>Soil &amp; rubble collection</figcaption></figure>
+        <figure class="gallery-item" tabindex="0"><img src="images/gallery-4.jpg" alt="Bulky furniture from garden cleared" onerror="this.style.opacity='.25'" /><figcaption>Bulky item removal</figcaption></figure>
+        <figure class="gallery-item" tabindex="0"><img src="images/gallery-5.jpg" alt="Overgrown garden cuttings removed" onerror="this.style.opacity='.25'" /><figcaption>Overgrowth clearance</figcaption></figure>
+        <figure class="gallery-item" tabindex="0"><img src="images/gallery-6.jpg" alt="End of tenancy garden clearance" onerror="this.style.opacity='.25'" /><figcaption>End-of-tenancy clear</figcaption></figure>
+      </div>
+    </div>
+  </section>
 
-        <article class="service-card">
-          <h3>Accident Recovery</h3>
-          <p>Had a bump or serious accident? We connect you with an operator who can recover your vehicle to a safe location or chosen garage.</p>
-          <a href="accident-recovery.html" class="text-link">More about accident recovery →</a>
-        </article>
-
-        <article class="service-card">
-          <h3>Vehicle Transport</h3>
-          <p>Need a car or van moved between addresses, garages or buyers? We dispatch a local transport operator for pre-booked moves.</p>
-          <a href="vehicle-transport.html" class="text-link">More about vehicle transport →</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- Prices -->
-    <section class="prices">
-      <h2>Guide Prices</h2>
-      <p class="prices-intro">Every job is different, but these guides keep things simple and transparent.</p>
-      <div class="price-grid">
-        <div class="price-card">
-          <h3>Local recovery</h3>
-          <p class="price-main">Typical from <strong>£60</strong></p>
-          <p class="price-note">Short-distance recovery within Portsmouth. Prices are indicative and may vary by distance, access, vehicle condition, time of day and operator availability. Your attending operator will confirm the final price before dispatch where possible.</p>
-        </div>
-        <div class="price-card">
-          <h3>Longer distance</h3>
-          <p class="price-main">Typical from <strong>£1.50 per mile</strong></p>
-          <p class="price-note">For recoveries outside the immediate area or between towns. Rates shown are examples only and can’t be guaranteed — your operator will confirm the total cost before dispatch where possible.</p>
-        </div>
-      </div>
-      <p class="small-note">
-        We’ll aim to confirm pricing before dispatch – final pricing is set by the attending operator.
-      </p>
-      <p class="small-note">
-        Payment is taken by the attending independent operator.
-      </p>
-      <p class="small-note price-disclaimer">
-        Pricing is indicative – see our <a href="terms.html">Terms &amp; Conditions</a> for details.
-      </p>
-    </section>
-
-    <!-- FAQ -->
-    <section class="faq">
-      <h2>FAQs</h2>
-      <div class="faq-item">
-        <h3>Are you the recovery company?</h3>
-        <p>No. Recovero is a booking and coordination service. We connect you with an independent local recovery operator who attends.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Who do I pay?</h3>
-        <p>You pay the attending operator directly on completion. Recovero does not take payment from customers.</p>
-      </div>
-      <div class="faq-item">
-        <h3>How is the price calculated?</h3>
-        <p>Pricing depends on distance, vehicle type, access, time of day, and the situation. The operator will confirm the final price before attending where possible.</p>
-      </div>
-      <div class="faq-item">
-        <h3>What areas do you cover?</h3>
-        <p>Portsmouth and surrounding areas (including Havant, Fareham, Gosport and nearby). Longer-distance transport is available on request.</p>
-      </div>
-      <div class="faq-item">
-        <h3>How quickly can you attend?</h3>
-        <p>Arrival times vary based on traffic and operator availability. We’ll connect you to the nearest available operator and they’ll confirm an ETA.</p>
-      </div>
-      <div class="faq-item">
-        <h3>What information do you need from me?</h3>
-        <p>Pickup location/postcode, destination (if needed), vehicle make/model, and what’s happened (breakdown/accident/non-runner).</p>
-      </div>
-      <div class="faq-item">
-        <h3>What if I need to cancel?</h3>
-        <p>Tell us as soon as possible. If an operator has already been dispatched or attended, you may be charged by the operator for time/travel.</p>
-      </div>
-      <div class="faq-item">
-        <h3>What if I’m on a motorway / in a dangerous location?</h3>
-        <p>If you’re in immediate danger, call 999. For motorways/hard shoulder, follow safety guidance and we’ll prioritise connecting you to an available operator.</p>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="site-footer">
-    <p>© Recovero – Recovery Dispatch Network (Introducer). Connecting customers with local independent operators. <a href="terms.html">Terms &amp; Conditions</a> | <a href="privacy-policy.html">Privacy Policy</a></p>
-    <p>Recovero trades online as recovero247.co.uk.</p>
-  </footer>
-
-  <!-- Sticky mobile call bar -->
-  <div class="sticky-bar" role="group" aria-label="Sticky contact options">
-    <a href="tel:07366302341" class="sticky-button sticky-call js-sticky-call" aria-label="Call Recovero on 07366 302341">
-      <span class="sticky-button-title">📞 Call</span>
-      <span class="sticky-button-sub">Recovero 24/7 dispatch</span>
-    </a>
-    <a href="https://wa.me/447366302341?text=Hi%20Recovero%2C%20I%20need%20recovery.%20Location%2Fpostcode%3A%20____%20.%20Vehicle%3A%20____%20.%20Issue%3A%20____%20." class="sticky-button sticky-whatsapp js-sticky-whatsapp" aria-label="WhatsApp Recovero on 07366 302341" target="_blank" rel="noopener">
-      <span class="sticky-button-title">💬 WhatsApp</span>
-      <span class="sticky-button-sub">Message your details</span>
-    </a>
+  <div class="modal" id="lightbox" aria-hidden="true" role="dialog" aria-label="Gallery image viewer">
+    <div class="modal-box">
+      <button class="close-modal" id="closeModal" aria-label="Close image viewer">×</button>
+      <img id="modalImg" src="" alt="Expanded gallery item" />
+    </div>
   </div>
 
-  <script src="script.js"></script>
+  <section class="section">
+    <div class="container reveal">
+      <h2>Trust &amp; Compliance</h2>
+      <div class="badge">✅ Licensed Waste Carrier: <span id="licenceText">CBDU123456</span></div>
+      <p class="lead">Your waste is handled legally with duty of care in mind. We do not fly-tip and we recycle where possible through authorised facilities.</p>
+      <div class="trust-icons">
+        <div class="service-card"><div class="service-icon">🛡</div><h3>Insured</h3><p>Public liability cover for peace of mind.</p></div>
+        <div class="service-card"><div class="service-icon">🚫</div><h3>No fly-tipping</h3><p>Licensed transfer and disposal routes only.</p></div>
+        <div class="service-card"><div class="service-icon">♻</div><h3>Recycle where possible</h3><p>Materials diverted from landfill when suitable.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container reveal">
+      <h2>Areas We Cover</h2>
+      <div class="map-wrap">
+        <svg viewBox="0 0 760 260" width="100%" role="img" aria-label="Coverage radius map centred on Portsmouth">
+          <rect x="10" y="10" width="740" height="240" rx="16" fill="#edf6f2" stroke="#cde0d7"/>
+          <circle cx="370" cy="130" r="72" fill="rgba(31,157,122,.18)" stroke="#1f9d7a" stroke-width="3"/>
+          <circle cx="370" cy="130" r="8" fill="#c0392b"/>
+          <path d="M370 88c16 0 29 12 29 28 0 21-29 52-29 52s-29-31-29-52c0-16 13-28 29-28z" fill="#e74c3c"/>
+          <text x="405" y="134" font-size="18" font-weight="700" fill="#113d2f" id="mapCity">Portsmouth</text>
+          <text x="405" y="156" font-size="13" fill="#4b625a">Typical same-day radius</text>
+        </svg>
+        <div class="chips" id="areaChips">
+          <span class="chip">Southsea</span><span class="chip">Cosham</span><span class="chip">Havant</span><span class="chip">Waterlooville</span><span class="chip">Fareham</span><span class="chip">Gosport</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container reveal">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <details><summary>How much does garden clearance cost?</summary><p>Pricing depends on waste type, volume, and access. Share photos and postcode for a fixed quote.</p></details>
+        <details><summary>What can’t you take?</summary><p>We can’t collect hazardous chemicals, asbestos, gas cylinders, or medical waste without specialist arrangements.</p></details>
+        <details><summary>Do you offer same-day clearance?</summary><p>Yes, same-day slots are often available depending on demand and your location.</p></details>
+        <details><summary>What if access is difficult?</summary><p>No problem—let us know about stairs, narrow paths, or parking limits when requesting your quote.</p></details>
+        <details><summary>Can you remove heavy soil and rubble?</summary><p>Yes. Heavy loads are priced separately due to disposal weight charges.</p></details>
+        <details><summary>Is this better than hiring a skip?</summary><p>Often yes for smaller jobs. No permits, no waiting, and we do the loading for you.</p></details>
+        <details><summary>How do I pay?</summary><p>Most customers pay by bank transfer or card on completion. Business invoicing available.</p></details>
+        <details><summary>Do you recycle garden waste?</summary><p>We recycle where possible through authorised facilities and follow duty of care obligations.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container reveal">
+      <div class="final-cta">
+        <h2 style="margin-top:0;color:#fff">Need Garden Clearance in <span id="finalArea">Portsmouth</span> Today?</h2>
+        <p style="color:#cae6db">Call now or send photos on WhatsApp for a fast fixed quote.</p>
+        <div class="btn-row" style="justify-content:center;flex-wrap:wrap;margin-top:1rem">
+          <a class="btn btn-call" id="callBtnBottom" href="tel:+447700900123">Call 07700 900123</a>
+          <a class="btn btn-wa" id="waBtnBottom" href="https://wa.me/447700900123" target="_blank" rel="noopener">WhatsApp Quote</a>
+          <a class="btn btn-secondary" href="#quote-form">Get Quote</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p style="margin:0 0 .5rem"><strong id="footerBrand">ClearPath Garden Clearance</strong> • Portsmouth & surrounding areas • Mon–Sat 07:00–19:00</p>
+      <p style="margin:0 0 .5rem">Company details placeholder | <a href="#">Privacy</a> | <a href="#">Terms</a></p>
+      <small>All estimates are guides. Final quote confirmed after photo review and access assessment.</small>
+    </div>
+  </footer>
+
   <script>
-    function trackStickyEvent(name) {
-      if (window.dataLayer && typeof window.dataLayer.push === 'function') {
-        window.dataLayer.push({ event: name });
-        return;
+    const CONFIG = {
+      brandName: "ClearPath",
+      phoneNumber: "+447700900123",
+      whatsappNumber: "447700900123",
+      serviceArea: "Portsmouth",
+      licenceNumber: "CBDU123456",
+      callbackMessage: "We’ll call within 10 minutes.",
+      estimator: {
+        green: { bags: [60, 95], quarter: [110, 150], half: [170, 230], full: [300, 390] },
+        mixed: { bags: [70, 110], quarter: [120, 170], half: [190, 260], full: [330, 430] },
+        rubble: { bags: [90, 140], quarter: [150, 220], half: [240, 330], full: [410, 520] },
+        shed: { bags: [120, 180], quarter: [170, 250], half: [260, 360], full: [420, 560] }
       }
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', name);
-        return;
-      }
-      console.log(name);
-    }
+    };
 
-    document.querySelectorAll('.js-sticky-call').forEach(function (el) {
-      el.addEventListener('click', function () {
-        trackStickyEvent('click_call_sticky');
-      });
+    const phoneSanitized = CONFIG.phoneNumber.replace(/\s+/g, "");
+    const waURL = `https://wa.me/${CONFIG.whatsappNumber}`;
+
+    document.getElementById("brandText").textContent = CONFIG.brandName;
+    document.getElementById("footerBrand").textContent = `${CONFIG.brandName} Garden Clearance`;
+    document.getElementById("serviceAreaHeading").textContent = CONFIG.serviceArea;
+    document.getElementById("mapCity").textContent = CONFIG.serviceArea;
+    document.getElementById("finalArea").textContent = CONFIG.serviceArea;
+    document.getElementById("licenceText").textContent = CONFIG.licenceNumber;
+
+    ["callBtnTop", "callBtnHero", "callBtnBottom"].forEach(id => {
+      const el = document.getElementById(id);
+      el.href = `tel:${phoneSanitized}`;
+      if (id === "callBtnBottom") el.textContent = `Call ${CONFIG.phoneNumber.replace("+44", "0")}`;
+    });
+    ["waBtnTop", "waBtnBottom", "waTextLink"].forEach(id => document.getElementById(id).href = waURL);
+
+    const stickyBar = document.getElementById("stickyBar");
+    window.addEventListener("scroll", () => {
+      stickyBar.classList.toggle("show", window.scrollY > 70);
+    }, { passive: true });
+
+    const form = document.getElementById("quoteForm");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const success = document.getElementById("successMsg");
+      success.textContent = `Thanks — quote request sent. ${CONFIG.callbackMessage}`;
+      success.style.display = "block";
+      form.reset();
     });
 
-    document.querySelectorAll('.js-sticky-whatsapp').forEach(function (el) {
-      el.addEventListener('click', function () {
-        trackStickyEvent('click_whatsapp_sticky');
+    const estType = document.getElementById("estimateType");
+    const estSize = document.getElementById("estimateSize");
+    const estValue = document.getElementById("estimateValue");
+    const updateEstimate = () => {
+      const [min, max] = CONFIG.estimator[estType.value][estSize.value];
+      estValue.textContent = `£${min}–£${max}`;
+    };
+    estType.addEventListener("change", updateEstimate);
+    estSize.addEventListener("change", updateEstimate);
+    updateEstimate();
+
+    const modal = document.getElementById("lightbox");
+    const modalImg = document.getElementById("modalImg");
+    const closeModal = document.getElementById("closeModal");
+    let lastFocused;
+
+    const openModal = (src, alt) => {
+      lastFocused = document.activeElement;
+      modalImg.src = src;
+      modalImg.alt = alt;
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      closeModal.focus();
+    };
+
+    const closeLightbox = () => {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      modalImg.src = "";
+      if (lastFocused) lastFocused.focus();
+    };
+
+    document.querySelectorAll(".gallery-item").forEach(item => {
+      const img = item.querySelector("img");
+      const handler = () => openModal(img.currentSrc || img.src, img.alt);
+      item.addEventListener("click", handler);
+      item.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handler();
+        }
       });
     });
+    closeModal.addEventListener("click", closeLightbox);
+    modal.addEventListener("click", (e) => { if (e.target === modal) closeLightbox(); });
+    window.addEventListener("keydown", (e) => { if (e.key === "Escape" && modal.classList.contains("open")) closeLightbox(); });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .14 });
+
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "ClearPath Garden Clearance",
+    "telephone": "+447700900123",
+    "areaServed": "Portsmouth",
+    "image": "images/garden-after.jpg",
+    "openingHours": ["Mo-Sa 07:00-19:00"],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Portsmouth",
+      "addressCountry": "GB"
+    },
+    "url": "https://example.com"
+  }
   </script>
 </body>
 </html>
