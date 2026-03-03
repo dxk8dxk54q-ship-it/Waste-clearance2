@@ -421,6 +421,7 @@
       .trust-icons { grid-template-columns: repeat(3,1fr); }
     }
   </style>
+  <script src="script.js" defer></script>
 </head>
 <body>
   <div class="sticky-bar" id="stickyBar">
@@ -466,7 +467,7 @@
       <p class="lead"><strong>Minimum job: Half-load (or minimum charge applies).</strong></p>
       <p class="lead">Send details now. Or share photos on WhatsApp for a faster fixed quote.</p>
       <div class="form-wrap">
-        <form id="quoteForm">
+        <form id="quoteForm" onsubmit="return sendQuoteToWhatsApp(event);">
           <div class="field-grid">
             <label>Name<input required name="name" autocomplete="name" /></label>
             <label>Phone<input required name="phone" type="tel" autocomplete="tel" /></label>
@@ -495,7 +496,7 @@
           <label>Access notes<textarea name="access_notes" placeholder="e.g. side gate access, stairs, parking details"></textarea></label>
           <label>Upload photos (optional)<input name="photo" type="file" accept="image/*" multiple /></label>
           <label class="check"><input required type="checkbox" name="consent" /> I agree to be contacted about my quote.</label>
-          <button class="btn btn-primary" type="submit">Get My Quote</button>
+          <button type="submit">Get My Quote</button>
           <p style="margin:0;color:var(--muted);font-size:.9rem">You’ll be able to attach photos after WhatsApp opens.</p>
           <div class="success" id="successMsg" role="status" aria-live="polite">Thanks — quote request sent. We’ll call within 10 minutes.</div>
         </form>
@@ -689,25 +690,6 @@
     window.addEventListener("scroll", () => {
       stickyBar.classList.toggle("show", window.scrollY > 70);
     }, { passive: true });
-
-    const form = document.getElementById("quoteForm");
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      const message = [
-        "Waste Clearance Quote Request",
-        `Name: ${formData.get("name") || ""}`,
-        `Phone: ${formData.get("phone") || ""}`,
-        `Postcode: ${formData.get("postcode") || ""}`,
-        `Waste type: ${formData.get("waste_type") || ""}`,
-        `Load size: ${formData.get("load_size") || ""}`,
-        `Preferred date: ${formData.get("preferred_date") || ""}`,
-        `Access notes: ${formData.get("access_notes") || ""}`,
-        "Photos: please attach in WhatsApp after it opens."
-      ].join("\n");
-
-      window.location.href = `${CONFIG.whatsappBaseUrl}?text=${encodeURIComponent(message)}`;
-    });
 
     const modal = document.getElementById("lightbox");
     const modalImg = document.getElementById("modalImg");
