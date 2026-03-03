@@ -428,7 +428,7 @@
       <div class="logo"><span id="brandText">ClearPath</span> Waste Clearance</div>
       <div class="btn-row">
         <a class="btn btn-call" id="callBtnTop" href="tel:07366302341">Call</a>
-        <a class="btn btn-wa" id="waBtnTop" href="https://wa.me/447366302341?text=Hi%2C%20I%20need%20a%20waste%20clearance%20quote.%20Postcode%3A%20__.%20Waste%20type%3A%20__.%20Amount%3A%20__.%20Photos%20attached." target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn btn-wa" id="waBtnTop" href="https://wa.me/447366302341" target="_blank" rel="noopener">WhatsApp</a>
       </div>
     </div>
   </div>
@@ -472,7 +472,7 @@
             <label>Phone<input required name="phone" type="tel" autocomplete="tel" /></label>
             <label>Postcode<input required name="postcode" /></label>
             <label>What needs clearing?
-              <select required name="wasteType">
+              <select required name="waste_type">
                 <option value="">Choose…</option>
                 <option>Household / general</option>
                 <option>Garden</option>
@@ -482,7 +482,7 @@
               </select>
             </label>
             <label>How much waste?
-              <select required name="size">
+              <select required name="load_size">
                 <option value="">Choose…</option>
                 <option>Half load</option>
                 <option>Full load</option>
@@ -490,15 +490,16 @@
                 <option>Unsure — send photos</option>
               </select>
             </label>
-            <label>Preferred date<input name="date" type="date" /></label>
+            <label>Preferred date<input name="preferred_date" type="date" /></label>
           </div>
-          <label>Access notes<textarea name="notes" placeholder="e.g. side gate access, stairs, parking details"></textarea></label>
+          <label>Access notes<textarea name="access_notes" placeholder="e.g. side gate access, stairs, parking details"></textarea></label>
           <label>Upload photos (optional)<input name="photo" type="file" accept="image/*" multiple /></label>
           <label class="check"><input required type="checkbox" name="consent" /> I agree to be contacted about my quote.</label>
           <button class="btn btn-primary" type="submit">Get My Quote</button>
+          <p style="margin:0;color:var(--muted);font-size:.9rem">You’ll be able to attach photos after WhatsApp opens.</p>
           <div class="success" id="successMsg" role="status" aria-live="polite">Thanks — quote request sent. We’ll call within 10 minutes.</div>
         </form>
-        <p style="margin:1rem 0 0;color:var(--muted)"><strong>Prefer WhatsApp?</strong> Take 2–3 photos, include your postcode and send to <a id="waTextLink" href="https://wa.me/447366302341?text=Hi%2C%20I%20need%20a%20waste%20clearance%20quote.%20Postcode%3A%20__.%20Waste%20type%3A%20__.%20Amount%3A%20__.%20Photos%20attached." style="color:var(--primary);font-weight:700">our WhatsApp quote line</a>.</p>
+        <p style="margin:1rem 0 0;color:var(--muted)"><strong>Prefer WhatsApp?</strong> Take 2–3 photos, include your postcode and send to <a id="waTextLink" href="https://wa.me/447366302341" target="_blank" rel="noopener" style="color:var(--primary);font-weight:700">our WhatsApp quote line</a>.</p>
       </div>
     </div>
   </section>
@@ -645,7 +646,7 @@
         <p style="color:#cae6db">Call now or send photos on WhatsApp for a fast fixed quote.</p>
         <div class="btn-row" style="justify-content:center;flex-wrap:wrap;margin-top:1rem">
           <a class="btn btn-call" id="callBtnBottom" href="tel:07366302341">Call 07366 302341</a>
-          <a class="btn btn-wa" id="waBtnBottom" href="https://wa.me/447366302341?text=Hi%2C%20I%20need%20a%20waste%20clearance%20quote.%20Postcode%3A%20__.%20Waste%20type%3A%20__.%20Amount%3A%20__.%20Photos%20attached." target="_blank" rel="noopener">WhatsApp Quote</a>
+          <a class="btn btn-wa" id="waBtnBottom" href="https://wa.me/447366302341" target="_blank" rel="noopener">WhatsApp Quote</a>
           <a class="btn btn-secondary" href="#quote-form">Get Quote</a>
         </div>
       </div>
@@ -664,14 +665,12 @@
     const CONFIG = {
       brandName: "ClearPath",
       phoneNumber: "+447366302341",
-      whatsappNumber: "447366302341",
       serviceArea: "Portsmouth",
-      callbackMessage: "We’ll call within 10 minutes.",
-      whatsappMessage: "Hi, I need a waste clearance quote. Postcode: __. Waste type: __. Amount: __. Photos attached."
+      whatsappBaseUrl: "https://wa.me/447366302341"
     };
 
     const phoneSanitized = CONFIG.phoneNumber.replace(/\s+/g, "");
-    const waURL = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(CONFIG.whatsappMessage)}`;
+    const waURL = CONFIG.whatsappBaseUrl;
 
     document.getElementById("brandText").textContent = CONFIG.brandName;
     document.getElementById("footerBrand").textContent = `${CONFIG.brandName} Waste Clearance`;
@@ -694,10 +693,20 @@
     const form = document.getElementById("quoteForm");
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-      const success = document.getElementById("successMsg");
-      success.textContent = `Thanks — quote request sent. ${CONFIG.callbackMessage}`;
-      success.style.display = "block";
-      form.reset();
+      const formData = new FormData(form);
+      const message = [
+        "Waste Clearance Quote Request",
+        `Name: ${formData.get("name") || ""}`,
+        `Phone: ${formData.get("phone") || ""}`,
+        `Postcode: ${formData.get("postcode") || ""}`,
+        `Waste type: ${formData.get("waste_type") || ""}`,
+        `Load size: ${formData.get("load_size") || ""}`,
+        `Preferred date: ${formData.get("preferred_date") || ""}`,
+        `Access notes: ${formData.get("access_notes") || ""}`,
+        "Photos: please attach in WhatsApp after it opens."
+      ].join("\n");
+
+      window.location.href = `${CONFIG.whatsappBaseUrl}?text=${encodeURIComponent(message)}`;
     });
 
     const modal = document.getElementById("lightbox");
