@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Waste Clearance in Portsmouth | Same-day Available</title>
   <meta name="description" content="Waste clearance in Portsmouth for household, garden, builders and full clearances. Same-day options, upfront quotes, and we load and remove." />
+  <script>document.documentElement.classList.add('js');</script>
   <style>
     :root {
       --bg: #f5f8f7;
@@ -456,12 +457,19 @@
       font-size: .92rem;
     }
 
-    .reveal {
+    /* FAILSAFE: content visible by default */
+    .reveal { opacity: 1; transform: none; }
+
+    /* Only hide/animate when JS is enabled */
+    .js .reveal {
       opacity: 0;
       transform: translateY(14px);
       transition: opacity .5s ease, transform .5s ease;
     }
-    .reveal.show { opacity: 1; transform: translateY(0); }
+    .js .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     @media (min-width: 740px) {
       .hero-grid { grid-template-columns: 1.02fr .98fr; }
@@ -737,6 +745,14 @@
   </footer>
 
   <script>
+    const $ = (id) => document.getElementById(id);
+    const setText = (id, text) => { const el = $(id); if (el) el.textContent = text; };
+    const setHref = (id, href) => { const el = $(id); if (el) el.href = href; };
+
+    window.addEventListener("error", () => {
+      document.querySelectorAll(".reveal").forEach(el => el.classList.add("show"));
+    });
+
     const CONFIG = {
       brandName: "ClearPath",
       phoneNumber: "+447366302341",
@@ -747,27 +763,30 @@
     const phoneSanitized = CONFIG.phoneNumber.replace(/\s+/g, "");
     const waURL = CONFIG.whatsappBaseUrl;
 
-    document.getElementById("brandText").textContent = CONFIG.brandName;
-    document.getElementById("footerBrand").textContent = `${CONFIG.brandName} Waste Clearance`;
-    document.getElementById("serviceAreaHeading").textContent = CONFIG.serviceArea;
-    document.getElementById("mapCity").textContent = CONFIG.serviceArea;
-    document.getElementById("finalArea").textContent = CONFIG.serviceArea;
+    setText("brandText", CONFIG.brandName);
+    setText("footerBrand", `${CONFIG.brandName} Waste Clearance`);
+    setText("serviceAreaHeading", CONFIG.serviceArea);
+    setText("mapCity", CONFIG.serviceArea);
+    setText("finalArea", CONFIG.serviceArea);
 
     ["callBtnTop", "callBtnHero", "callBtnBottom"].forEach(id => {
-      const el = document.getElementById(id);
+      const el = $(id);
+      if (!el) return;
       el.href = `tel:${phoneSanitized}`;
       if (id === "callBtnBottom") el.textContent = `Call ${CONFIG.phoneNumber.replace("+44", "0")}`;
     });
-    ["waBtnTop", "waBtnBottom", "waTextLink"].forEach(id => document.getElementById(id).href = waURL);
+    ["waBtnTop", "waBtnBottom", "waTextLink"].forEach(id => setHref(id, waURL));
 
-    const stickyBar = document.getElementById("stickyBar");
-    window.addEventListener("scroll", () => {
-      stickyBar.classList.toggle("show", window.scrollY > 70);
-    }, { passive: true });
+    const stickyBar = $("stickyBar");
+    if (stickyBar) {
+      window.addEventListener("scroll", () => {
+        stickyBar.classList.toggle("show", window.scrollY > 70);
+      }, { passive: true });
+    }
 
-    const modal = document.getElementById("lightbox");
-    const modalImg = document.getElementById("modalImg");
-    const closeModal = document.getElementById("closeModal");
+    const modal = $("lightbox");
+    const modalImg = $("modalImg");
+    const closeModal = $("closeModal");
     let lastFocused;
 
     const openModal = (src, alt) => {
@@ -786,31 +805,38 @@
       if (lastFocused) lastFocused.focus();
     };
 
-    document.querySelectorAll(".gallery-item").forEach(item => {
-      const img = item.querySelector("img");
-      const handler = () => openModal(img.currentSrc || img.src, img.alt);
-      item.addEventListener("click", handler);
-      item.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          handler();
-        }
+    if (modal && modalImg && closeModal) {
+      document.querySelectorAll(".gallery-item").forEach(item => {
+        const img = item.querySelector("img");
+        if (!img) return;
+        const handler = () => openModal(img.currentSrc || img.src, img.alt);
+        item.addEventListener("click", handler);
+        item.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            handler();
+          }
+        });
       });
-    });
-    closeModal.addEventListener("click", closeLightbox);
-    modal.addEventListener("click", (e) => { if (e.target === modal) closeLightbox(); });
-    window.addEventListener("keydown", (e) => { if (e.key === "Escape" && modal.classList.contains("open")) closeLightbox(); });
+      closeModal.addEventListener("click", closeLightbox);
+      modal.addEventListener("click", (e) => { if (e.target === modal) closeLightbox(); });
+      window.addEventListener("keydown", (e) => { if (e.key === "Escape" && modal.classList.contains("open")) closeLightbox(); });
+    }
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("show");
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: .14 });
+    try {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: .14 });
 
-    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+      document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+    } catch (e) {
+      document.querySelectorAll(".reveal").forEach(el => el.classList.add("show"));
+    }
   </script>
 
   <script type="application/ld+json">
