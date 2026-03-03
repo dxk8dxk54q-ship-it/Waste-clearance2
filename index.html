@@ -272,13 +272,57 @@
     }
     .service-icon { font-size: 1.3rem; margin-bottom: .35rem; }
 
-    .diagram {
-      background: linear-gradient(170deg, #ecf7f2, #dff1ea);
-      border-radius: var(--radius);
-      padding: var(--space-3);
-      overflow-x: auto;
+    /* Mobile-friendly How It Works */
+    .how-steps{
+      display:grid;
+      gap: var(--space-3);
     }
-    .diagram svg { min-width: 780px; width: 100%; height: auto; }
+
+    .how-step{
+      background:#fff;
+      border: 1px solid #c3ddd2;
+      border-radius: 16px;
+      padding: 16px;
+      position: relative;
+    }
+
+    .how-step__title{
+      font-weight: 800;
+      font-size: 1.05rem;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .how-step__text{
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .how-step__icon{
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: #d8f3e5;
+      display: grid;
+      place-items: center;
+      margin-top: 12px;
+      font-weight: 800;
+    }
+
+    /* Desktop: 4 columns + arrows */
+    @media (min-width: 740px){
+      .how-steps{ grid-template-columns: repeat(4, 1fr); }
+      .how-step:not(:last-child)::after{
+        content:"";
+        position:absolute;
+        right:-18px;
+        top:50%;
+        transform: translateY(-50%);
+        border-left: 18px solid rgba(15,122,75,.65);
+        border-top: 12px solid transparent;
+        border-bottom: 12px solid transparent;
+      }
+    }
 
     .estimator {
       display: grid;
@@ -534,31 +578,30 @@
   <section class="section" aria-labelledby="howItWorksTitle">
     <div class="container reveal">
       <h2 id="howItWorksTitle">How It Works</h2>
-      <div class="diagram" role="img" aria-label="4-step garden clearance process diagram">
-        <svg viewBox="0 0 980 280" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#0f7a4b"/></marker>
-          </defs>
-          <rect x="25" y="55" width="210" height="160" rx="16" fill="#fff" stroke="#c3ddd2"/>
-          <rect x="265" y="55" width="210" height="160" rx="16" fill="#fff" stroke="#c3ddd2"/>
-          <rect x="505" y="55" width="210" height="160" rx="16" fill="#fff" stroke="#c3ddd2"/>
-          <rect x="745" y="55" width="210" height="160" rx="16" fill="#fff" stroke="#c3ddd2"/>
-          <line x1="235" y1="135" x2="255" y2="135" stroke="#0f7a4b" stroke-width="4" marker-end="url(#arr)"/>
-          <line x1="475" y1="135" x2="495" y2="135" stroke="#0f7a4b" stroke-width="4" marker-end="url(#arr)"/>
-          <line x1="715" y1="135" x2="735" y2="135" stroke="#0f7a4b" stroke-width="4" marker-end="url(#arr)"/>
-          <text x="48" y="90" font-size="20" font-weight="700" fill="#0d2f23">1. Send photos / describe</text>
-          <text x="48" y="124" font-size="15" fill="#486258">WhatsApp or form details</text>
-          <text x="290" y="90" font-size="20" font-weight="700" fill="#0d2f23">2. Fixed quote confirmed</text>
-          <text x="290" y="124" font-size="15" fill="#486258">Clear price before we start</text>
-          <text x="530" y="90" font-size="20" font-weight="700" fill="#0d2f23">3. We clear &amp; load</text>
-          <text x="530" y="124" font-size="15" fill="#486258">Fast, tidy, professional team</text>
-          <text x="768" y="90" font-size="20" font-weight="700" fill="#0d2f23">4. Legal disposal</text>
-          <text x="768" y="124" font-size="15" fill="#486258">Duty of care documentation</text>
-          <circle cx="73" cy="170" r="20" fill="#d8f3e5"/><text x="65" y="176" font-size="16">📷</text>
-          <circle cx="313" cy="170" r="20" fill="#d8f3e5"/><text x="307" y="176" font-size="16">£</text>
-          <circle cx="553" cy="170" r="20" fill="#d8f3e5"/><text x="546" y="176" font-size="16">🚚</text>
-          <circle cx="793" cy="170" r="20" fill="#d8f3e5"/><text x="786" y="176" font-size="16">♻</text>
-        </svg>
+      <div class="how-steps" aria-label="How it works steps">
+        <div class="how-step">
+          <div class="how-step__title">1. Send photos / describe</div>
+          <div class="how-step__text">WhatsApp or form details</div>
+          <div class="how-step__icon">📷</div>
+        </div>
+
+        <div class="how-step">
+          <div class="how-step__title">2. Fixed quote confirmed</div>
+          <div class="how-step__text">Clear price before we start</div>
+          <div class="how-step__icon">£</div>
+        </div>
+
+        <div class="how-step">
+          <div class="how-step__title">3. We clear &amp; load</div>
+          <div class="how-step__text">Fast, tidy, professional team</div>
+          <div class="how-step__icon">🚚</div>
+        </div>
+
+        <div class="how-step">
+          <div class="how-step__title">4. Legal disposal</div>
+          <div class="how-step__text">Duty of care documentation</div>
+          <div class="how-step__icon">♻</div>
+        </div>
       </div>
     </div>
   </section>
